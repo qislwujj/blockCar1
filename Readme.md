@@ -35,36 +35,6 @@
 * 차량소유자는 차를 팔게되면 중고차 전산망에 차량의 모든 정보가 등록이 되고 다른 고객이 차를 사게되면 차량의 판매상태를 1로 바꾸어 차량의 유무를 알 수 있고, <br>
 중고차 전산망이 블록체인으로 바뀌면서 현재 난무하는 불법차량이나 허위차량 등 중고차시장에서 가장 문제로 꼽았던 문제들을 손쉽게 해결할 수 있게 됩니다.<br><br><br>
 
-
-## Add chaincode function: lostDia
-```go
-func (s *SmartContract) lostDia(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-
-        if len(args) != 1 {
-                return shim.Error("Incorrect number of arguments. Expecting 1")
-        }
-        
-        diaAsBytes, _ := APIstub.GetState(args[0])
-        dia := Dia{}
-
-        json.Unmarshal(diaAsBytes, &dia)
-        if dia.Lost == false {
-                dia.Lost = true
-                dia.Owner = "Insure Co"
-        }
-        
-        diaAsBytes, _ = json.Marshal(dia)
-        APIstub.PutState(args[0], diaAsBytes)                                                             
-        
-        return shim.Success(nil)
-}
-```
-<br>
-
-
-
-
-
 # 소스 코드
 
 ![bc4](https://user-images.githubusercontent.com/51254580/65012980-36b7b480-d954-11e9-9dfb-1875dbdaead5.png)
